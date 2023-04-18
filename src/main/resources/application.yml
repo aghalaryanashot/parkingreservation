@@ -1,0 +1,11 @@
+spring:
+  application.name: parking-reservation
+  datasource:
+    url: jdbc:postgresql://localhost:5432/parking_reservation
+    username: postgres
+    password: root
+  jpa.hibernate.naming:
+    physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  liquibase:
+    change-log: classpath:db/db.changelog-master.xml

@@ -1,0 +1,39 @@
+plugins {
+	id 'java'
+	id 'idea'
+	id 'org.springframework.boot' version '2.5.12'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.boon'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.12'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.12'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp:2.5.12'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.12'
+
+	// Swagger
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+
+	// Database
+	implementation 'org.postgresql:postgresql:42.3.4'
+	implementation 'org.liquibase:liquibase-core:4.10.0'
+
+	// Json
+	implementation 'org.json:json:20220320'
+
+	// Lombok
+	compileOnly "org.projectlombok:lombok:1.18.24"
+	annotationProcessor "org.projectlombok:lombok:1.18.24"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

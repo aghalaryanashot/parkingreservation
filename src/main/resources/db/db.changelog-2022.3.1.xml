@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet id="1" author="Ashot">
+        <createTable tableName="parking_space" remarks="Команды на печать заданий печати">
+            <column name="id" type="uuid" remarks="Уникальный идентификатор команды">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)" remarks="наимнаваня парковки">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Ashot">
+        <createTable tableName="booking">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parking_space_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+            <column name="end_time" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+            <column name="user_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="Ashot">
+        <sql dbms="postgresql">
+            <![CDATA[
+        ALTER TABLE booking
+        ADD CONSTRAINT chk_start_time_end_time CHECK (start_time < end_time);
+        ]]>
+        </sql>
+    </changeSet>
+</databaseChangeLog>
