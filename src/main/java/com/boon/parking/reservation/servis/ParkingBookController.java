@@ -19,49 +19,48 @@ import java.util.stream.Stream;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "parking", description = "паковка")
+@Tag(name = "parking", description = "парковка")
 public class ParkingBookController {
 
     private final ParkingSpaceService service;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/api/v1/parking_book", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Получение списка свободных порковок сейчас",
+    @GetMapping(value = "/api/v1/parking-spaces", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Получение списка свободных парковочных мест",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Данные получены",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = ParkingSpaceEntity.class)))
             })
-    public List<ParkingSpaceEntity> getPrintJobs() {
-        log.info("Получение списка свободных порковок сейчас");
+    public List<ParkingSpaceEntity> getFreeParkingSpaces() {
+        log.info("Получение списка свободных парковочных мест");
         return service.getFreeParkingSpaces();
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(value = "/api/v1/parking_space_save", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "создать паковочное место",
+    @PostMapping(value = "/api/v1/parking-spaces", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Создание нового парковочного места",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Данные получены",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = ParkingSpaceEntity.class)))
             })
     public ParkingSpaceEntity saveParkingSpace(@RequestBody ParkingSpaceDto parkingSpaceDto ) {
-        log.info("создать паковочное место");
+        log.info("Создание нового парковочного места");
         return service.saveParkingSpace(new ParkingSpaceEntity(parkingSpaceDto.getName()));
     }
 
-
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(value = "/api/v1/reservation", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "",
+    @PostMapping(value = "/api/v1/reservations", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Регистрация бронирования парковочного места",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Данные получены",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = ParkingSpaceEntity.class)))
             })
-    public int reservation(@RequestBody ReservationDto dto ) {
-        log.info("зарегистрировот порковочное место");
-        return service.reservation(dto);
+    public int registerReservation(@RequestBody ReservationDto dto ) {
+        log.info("Регистрация бронирования парковочного места");
+        return service.registerReservation(dto);
     }
 
 }
